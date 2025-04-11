@@ -1,0 +1,15 @@
+FROM node:22-alpine AS development
+WORKDIR /app
+
+# Copy only essential files for dependency installation
+COPY package.json yarn.lock ./
+
+# Install devDependencies
+RUN yarn install --frozen-lockfile
+
+# Copy the rest of the application
+COPY . .
+
+EXPOSE 3000
+
+CMD ["yarn", "dev"]
