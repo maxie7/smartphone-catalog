@@ -7,21 +7,19 @@ export default function Navbar() {
   const { cart } = useCart()
 
   return (
-    <nav className='flex items-center justify-between bg-gray-100 p-4 mb-4'>
-      <Link href='/' className='font-bold text-xl'>
-        Home
-      </Link>
+    <header className="w-full border-b border-gray-200">
+      <div className="max-w-screen-xl mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href="/phones" className="text-2xl font-bold tracking-wide">
+          <img src="/icons/mbst-logo.svg" alt="MBST" className="h-8" />
+        </Link>
 
-      <Link href='/phones' className='font-bold text-lg'>
-        Phones
-      </Link>
-
-      <Link href='/cart' className='flex items-center gap-2'>
-        <span>Cart</span>
-        <span className='bg-blue-500 text-white px-2 py-1 rounded'>
-          {cart.length}
-        </span>
-      </Link>
-    </nav>
+        <Link href="/cart" className="flex items-center gap-2">
+          <img src="/icons/cart-0.svg" alt="Cart" className="h-6" />
+          <span className="px-2 py-1 text-2xl font-thin">
+            {cart.length}
+          </span>
+        </Link>
+      </div>
+    </header>
   )
 }

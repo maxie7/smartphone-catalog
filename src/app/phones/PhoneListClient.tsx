@@ -58,27 +58,36 @@ export default function PhoneListClient({ initialPhones }: Props) {
 
   return (
     <div>
-      <div className='mb-3'>
+      <div className='mb-6'>
         <input
           type='text'
-          placeholder='Search by brand or name...'
+          placeholder='Search for a smartphone...'
           value={search}
           onChange={handleSearchChange}
-          className='border p-2 rounded'
+          className='w-full md:w-[400px] border-b border-gray-300 focus:outline-none text-lg py-2 placeholder-gray-400'
         />
-        <span className='ml-2'>Found {phones.length} items</span>
+        <span className='mt-2 text-gray-500 uppercase text-sm'>
+          {phones.length} results
+        </span>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      {/* Grid of phones */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6'>
         {phones.map((phone) => (
-          <div key={phone.id} className='border p-4 rounded'>
-            <img src={phone.imageUrl} alt={`${phone.brand} - ${phone.name}`} />
-            <h2 className='font-semibold'>{phone.name}</h2>
-            <p>{phone.brand}</p>
-            <p>Base Price: ${phone.basePrice}</p>
+          <div key={phone.id} className="border rounded p-4">
+            <img
+              src={phone.imageUrl}
+              alt={`${phone.brand} - ${phone.name}`}
+              className="mx-auto mb-3 h-60 object-contain"
+            />
+            <p className="text-xs text-gray-500 uppercase">{phone.brand}</p>
+            <h3 className="font-semibold">{phone.name}</h3>
+            <p className="text-sm text-gray-500">
+              Base Price: ${phone.basePrice}
+            </p>
             <a
               href={`/phones/${phone.id}`}
-              className='text-blue-500 underline mt-2 inline-block'
+              className="mt-2 inline-block text-blue-500 underline"
             >
               View Details
             </a>
