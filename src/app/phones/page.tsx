@@ -2,13 +2,16 @@ import { fetchPhones } from '@/lib/api'
 import PhoneListClient from '@/app/phones/PhoneListClient'
 
 export default async function PhonesPage() {
-  const initialPhones = await fetchPhones()
+  const data = await fetchPhones()
 
-  // Render a client component for handling search
+  const uniqueData = data.filter(
+    (item, index, arr) => arr.findIndex((p) => p.id === item.id) === index
+  ).slice(0, 20)
+
   return (
     <section>
       <h1 className='text-2xl font-bold mb-4'>Phone Catalog</h1>
-      <PhoneListClient initialPhones={initialPhones} />
+      <PhoneListClient initialPhones={uniqueData} />
     </section>
   )
 }

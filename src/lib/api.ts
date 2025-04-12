@@ -35,7 +35,7 @@ const API_BASE_URL = process.env.API_BASE_URL
 const API_KEY = process.env.API_KEY
 
 export async function fetchPhones(search?: string): Promise<Phone[]> {
-  let url = `${API_BASE_URL}/products?limit=24`
+  let url = `${API_BASE_URL}/products?limit=23`
   if (search) {
     url += `&search=${encodeURIComponent(search)}`
   }
