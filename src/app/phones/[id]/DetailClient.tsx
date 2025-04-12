@@ -50,7 +50,7 @@ interface DetailClientProps {
 }
 
 export default function DetailClient({ phone }: DetailClientProps) {
-  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedColor, setSelectedColor] = useState(phone.colorOptions[0]?.name || '')
   const [selectedStorage, setSelectedStorage] = useState('')
   const cart = useCart()
 
@@ -85,7 +85,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
       <img
         src={
           phone.colorOptions.find((opt) => opt.name === selectedColor)?.imageUrl
-          || phone.imageUrl
+          || phone.colorOptions[0]?.imageUrl
         }
         alt={`${phone.brand} - ${phone.name}`}
         className='mb-4 w-64'

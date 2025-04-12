@@ -1,4 +1,4 @@
-import './globals.css'
+import '../styles/globals.css'
 import { CartProvider } from '@/app/providers/CartProvider'
 import Navbar from '@/app/components/Navbar'
 import type { ReactNode } from 'react'
