@@ -11,8 +11,12 @@ function deduplicateById<T extends { id: string }>(items: T[]): T[] {
   )
 }
 
+async function getParams(params: { id: string }) {
+  return params
+}
+
 export default async function PhoneDetailPage(props: PhoneDetailPageProps) {
-  const { params } = props
+  const params = await getParams(props.params)
   const phone = await fetchPhoneById(params.id)
 
   // Deduplicate the similarProducts array (this is a backend bug)
