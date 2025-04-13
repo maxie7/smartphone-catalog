@@ -14,7 +14,7 @@ export default function CartPage() {
     return (
       <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-screen'>
         <div className='mb-6'>
-          <h2 className='text-xl md:text-2xl font-medium text-gray-700 uppercase'>
+          <h2 className='text-xl md:text-2xl font-medium text-gray-500 uppercase'>
             CART (0)
           </h2>
         </div>
@@ -36,7 +36,7 @@ export default function CartPage() {
           <button
             onClick={() => router.push('/phones')}
             className='border border-gray-600 text-gray-700 px-6 py-3 uppercase
-                     hover:bg-gray-100 transition-colors cursor-pointer'
+                       hover:bg-gray-100 transition-colors cursor-pointer'
           >
             Continue Shopping
           </button>
@@ -50,7 +50,7 @@ export default function CartPage() {
     <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-screen'>
       {/* Cart Title */}
       <div className='mb-6'>
-        <h2 className='text-xl md:text-2xl font-medium text-gray-700 uppercase'>
+        <h2 className='text-xl md:text-2xl font-medium text-gray-500 uppercase'>
           CART ({cart.length})
         </h2>
       </div>
@@ -71,7 +71,12 @@ export default function CartPage() {
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className='w-24 sm:w-32 md:w-40 object-contain'
+                className='
+                  w-24 h-24
+                  sm:w-32 sm:h-32
+                  md:w-40 md:h-40
+                  object-contain
+                '
               />
             </div>
 
@@ -109,8 +114,8 @@ export default function CartPage() {
           <div className='flex gap-4 w-full sm:w-auto justify-end'>
             <button
               onClick={() => router.push('/phones')}
-              className='border border-gray-600 text-gray-700 px-6 py-3  uppercase
-                     hover:bg-gray-100 transition-colors cursor-pointer'
+              className='border border-gray-600 text-gray-700 px-6 py-3 uppercase
+                         hover:bg-gray-100 transition-colors cursor-pointer'
             >
               Continue Shopping
             </button>
