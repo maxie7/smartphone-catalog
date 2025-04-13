@@ -61,47 +61,60 @@ export default function PhoneListClient({ initialPhones }: Props) {
   }, [search])
 
   return (
-    <div>
-      <div className='relative md:mb-12 mb-6 w-full md:w-[400px]'>
-        <input
-          type='text'
-          placeholder='Search for a smartphone...'
-          value={search}
-          onChange={handleSearchChange}
-          className='w-full border-b border-gray-600 focus:outline-none text-lg py-2 placeholder-gray-400 pr-8'
-        />
-        {search && (
-          <button
-            onClick={handleClearSearch}
-            className='absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 px-2'
-          >
-            &times;
-          </button>
-        )}
-        <span className='mt-2 block text-gray-500 uppercase text-sm'>
+    <div className='w-full'>
+
+      <div className='flex flex-col gap-1 mb-6 md:mb-12 w-full'>
+        <div className='relative'>
+          <input
+            type='text'
+            placeholder='Search for a smartphone...'
+            value={search}
+            onChange={handleSearchChange}
+            className='w-full border-b border-gray-600 focus:outline-none text-lg py-2 pr-8 placeholder-gray-400'
+          />
+          {search && (
+            <button
+              onClick={handleClearSearch}
+              className='absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 px-2 cursor-pointer'
+            >
+              &times;
+            </button>
+          )}
+        </div>
+
+        <span className='text-gray-500 uppercase text-sm'>
           {phones.length} results
         </span>
       </div>
 
-      {/* Grid of phones */}
       <div className='border border-gray-600 divide-y divide-gray-600 overflow-hidden'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 divide-x divide-gray-600'>
           {phones.map((phone) => (
             <Link
               key={phone.id}
               href={`/phones/${phone.id}`}
-              className='p-4 flex flex-col items-center hover:bg-gray-50 transition-colors'
+              className='p-4 flex flex-col hover:bg-gray-50 transition-colors'
             >
-              <img
-                src={phone.imageUrl}
-                alt={`${phone.brand} - ${phone.name}`}
-                className='mb-3 h-60 object-contain'
-              />
-              <p className='text-xs text-gray-500 uppercase'>{phone.brand}</p>
-              <h3 className='font-semibold'>{phone.name}</h3>
-              <p className='text-sm text-gray-500'>
-                Base Price: ${phone.basePrice}
-              </p>
+              <div className='flex-1 flex items-center justify-center mb-2'>
+                <img
+                  src={phone.imageUrl}
+                  alt={`${phone.brand} - ${phone.name}`}
+                  className='h-60 object-contain'
+                />
+              </div>
+
+              {/* Bottom row with brand+name on left, price on right */}
+              <div className='w-full flex justify-between items-end'>
+                <div className='flex flex-col'>
+                  <p className='text-xs text-gray-500 uppercase'>
+                    {phone.brand}
+                  </p>
+                  <h3 className='font-semibold'>{phone.name}</h3>
+                </div>
+                <p className='text-sm text-gray-500'>
+                  ${phone.basePrice}
+                </p>
+              </div>
             </Link>
           ))}
         </div>
