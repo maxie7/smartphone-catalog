@@ -9,7 +9,7 @@ export default function CartPage() {
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  // Empty cart layout
+  // If cart is empty
   if (cart.length === 0) {
     return (
       <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-screen'>
@@ -23,6 +23,7 @@ export default function CartPage() {
           <p className='text-gray-500'>Your cart is empty</p>
         </div>
 
+        {/* Sticky bottom bar */}
         <div
           className='
             sticky bottom-0 left-0 w-full
@@ -54,28 +55,31 @@ export default function CartPage() {
         </h2>
       </div>
 
-      {/* Cart items list */}
-      <div className='flex-1 overflow-auto pb-[120px]'>
+      {/* Cart items */}
+      <div className='flex-1 overflow-auto pb-[160px]'>
         {cart.map((item) => (
           <div
             key={item.id}
-            className='flex flex-col md:flex-row items-start md:items-center gap-4 mb-8'
+            className='
+              flex flex-nowrap
+              items-center
+              gap-4
+              mb-8
+            '
           >
-            {/* Phone image */}
             <div className='flex-shrink-0'>
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className='w-40 md:w-56 object-contain'
+                className='w-24 sm:w-32 md:w-40 object-contain'
               />
             </div>
 
-            {/* Item info */}
-            <div className='flex flex-col gap-1 md:gap-2'>
-              <h3 className='text-lg font-medium'>
+            <div className='flex flex-col flex-1 min-w-0'>
+              <h3 className='text-base sm:text-lg font-medium truncate'>
                 {item.brand} {item.name}
               </h3>
-              <p className='text-sm text-gray-600'>
+              <p className='text-sm text-gray-600 truncate'>
                 {item.storage} | {item.color}
               </p>
               <p className='text-sm text-gray-600'>
@@ -84,7 +88,7 @@ export default function CartPage() {
 
               <button
                 onClick={() => removeItem(item.id)}
-                className='text-red-600 text-sm hover:underline mt-1'
+                className='text-red-600 text-sm hover:underline mt-1 self-start'
               >
                 Eliminar
               </button>
@@ -93,39 +97,31 @@ export default function CartPage() {
         ))}
       </div>
 
-      {/* Sticky bottom bar */}
-      <div
-        className='
-          sticky bottom-0 left-0 w-full
-          bg-white
-          flex
-          items-center
-          justify-between
-          px-4 py-4
-          gap-4
-        '
-      >
-        {/* Left: Continue Shopping */}
-        <button
-          onClick={() => router.push('/phones')}
-          className='border border-gray-600 text-gray-700 px-6 py-3 uppercase
+      <div className='sticky bottom-0 left-0 w-full bg-white px-4 py-4'>
+        <div className='flex flex-col sm:flex-row items-center sm:justify-between gap-4'>
+          <div className='flex sm:order-none items-center justify-between w-full sm:w-auto'>
+            <span className='uppercase text-sm font-medium mr-2'>TOTAL</span>
+            <span className='uppercase text-sm font-medium'>
+              {totalPrice} EUR
+            </span>
+          </div>
+
+          <div className='flex gap-4 w-full sm:w-auto justify-end'>
+            <button
+              onClick={() => router.push('/phones')}
+              className='border border-gray-600 text-gray-700 px-6 py-3  uppercase
                      hover:bg-gray-100 transition-colors cursor-pointer'
-        >
-          Continue Shopping
-        </button>
-
-        <div className='flex w-[140px] justify-between uppercase text-sm font-medium'>
-          <span>TOTAL</span>
-          <span>{totalPrice} EUR</span>
+            >
+              Continue Shopping
+            </button>
+            <button
+              onClick={() => alert('Proceed to payment')}
+              className='bg-black text-white px-6 py-3 uppercase flex-1 text-center sm:flex-none cursor-pointer'
+            >
+              Pay
+            </button>
+          </div>
         </div>
-
-        {/* Right: Pay button */}
-        <button
-          onClick={() => alert('Proceed to payment')}
-          className='bg-black text-white px-6 py-3 uppercase'
-        >
-          Pay
-        </button>
       </div>
     </section>
   )
