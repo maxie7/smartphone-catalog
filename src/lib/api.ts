@@ -32,7 +32,14 @@ interface PhoneDetail extends Phone {
 }
 
 const API_BASE_URL = process.env.API_BASE_URL
+if (!API_BASE_URL) {
+  throw new Error('API_BASE_URL environment variable is not defined')
+}
+
 const API_KEY = process.env.API_KEY
+if (!API_KEY) {
+  throw new Error('API_KEY environment variable is not defined')
+}
 
 export async function fetchPhones(search?: string): Promise<Phone[]> {
   let url = `${API_BASE_URL}/products?limit=23`
@@ -57,7 +64,8 @@ export async function fetchPhoneById(id: string): Promise<PhoneDetail> {
   const res = await fetch(`${API_BASE_URL}/products/${id}`, {
     headers: {
       'x-api-key': API_KEY || ''
-    }
+    },
+    next: { revalidate: 3600 }
   })
 
   if (!res.ok) {

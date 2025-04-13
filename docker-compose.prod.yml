@@ -7,7 +7,7 @@ services:
     container_name: smartphone-catalog-prod
     volumes:
       - /app/node_modules
-    ports:
-      - "3000:3000"
     environment:
       - NODE_ENV=production
+    ports:
+      - "3000:3000"
