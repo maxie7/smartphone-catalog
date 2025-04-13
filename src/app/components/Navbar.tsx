@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full border-b border-gray-200">
-      <div className="max-w-screen-xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="px-4 h-16 flex items-center justify-between">
         <Link href="/phones" className="text-2xl font-bold tracking-wide">
           <img src="/icons/mbst-logo.svg" alt="MBST" className="h-8" />
         </Link>

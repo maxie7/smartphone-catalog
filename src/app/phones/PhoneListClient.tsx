@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import type { ChangeEvent } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
+import Link from 'next/link'
 
 interface Phone {
   id: string
@@ -18,6 +18,10 @@ interface Props {
 export default function PhoneListClient({ initialPhones }: Props) {
   const [phones, setPhones] = useState<Phone[]>(initialPhones)
   const [search, setSearch] = useState('')
+
+  function handleClearSearch() {
+    setSearch('')
+  }
 
   async function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value)
@@ -58,41 +62,49 @@ export default function PhoneListClient({ initialPhones }: Props) {
 
   return (
     <div>
-      <div className='mb-6'>
+      <div className='relative md:mb-12 mb-6 w-full md:w-[400px]'>
         <input
           type='text'
           placeholder='Search for a smartphone...'
           value={search}
           onChange={handleSearchChange}
-          className='w-full md:w-[400px] border-b border-gray-300 focus:outline-none text-lg py-2 placeholder-gray-400'
+          className='w-full border-b border-gray-600 focus:outline-none text-lg py-2 placeholder-gray-400 pr-8'
         />
-        <span className='mt-2 text-gray-500 uppercase text-sm'>
+        {search && (
+          <button
+            onClick={handleClearSearch}
+            className='absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 px-2'
+          >
+            &times;
+          </button>
+        )}
+        <span className='mt-2 block text-gray-500 uppercase text-sm'>
           {phones.length} results
         </span>
       </div>
 
       {/* Grid of phones */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6'>
-        {phones.map((phone) => (
-          <div key={phone.id} className="border rounded p-4">
-            <img
-              src={phone.imageUrl}
-              alt={`${phone.brand} - ${phone.name}`}
-              className="mx-auto mb-3 h-60 object-contain"
-            />
-            <p className="text-xs text-gray-500 uppercase">{phone.brand}</p>
-            <h3 className="font-semibold">{phone.name}</h3>
-            <p className="text-sm text-gray-500">
-              Base Price: ${phone.basePrice}
-            </p>
-            <a
+      <div className='border border-gray-600 divide-y divide-gray-600 overflow-hidden'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 divide-x divide-gray-600'>
+          {phones.map((phone) => (
+            <Link
+              key={phone.id}
               href={`/phones/${phone.id}`}
-              className="mt-2 inline-block text-blue-500 underline"
+              className='p-4 flex flex-col items-center hover:bg-gray-50 transition-colors'
             >
-              View Details
-            </a>
-          </div>
-        ))}
+              <img
+                src={phone.imageUrl}
+                alt={`${phone.brand} - ${phone.name}`}
+                className='mb-3 h-60 object-contain'
+              />
+              <p className='text-xs text-gray-500 uppercase'>{phone.brand}</p>
+              <h3 className='font-semibold'>{phone.name}</h3>
+              <p className='text-sm text-gray-500'>
+                Base Price: ${phone.basePrice}
+              </p>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

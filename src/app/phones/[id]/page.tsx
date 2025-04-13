@@ -19,7 +19,7 @@ export default async function PhoneDetailPage(props: PhoneDetailPageProps) {
   const params = await getParams(props.params)
   const phone = await fetchPhoneById(params.id)
 
-  // Deduplicate the similarProducts array (this is a backend bug)
+  // Deduplicate the similarProducts array (this is a API/backend bug)
   phone.similarProducts = deduplicateById(phone.similarProducts)
 
   return (
