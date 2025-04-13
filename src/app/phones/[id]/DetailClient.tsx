@@ -52,12 +52,18 @@ export default function DetailClient({ phone }: DetailClientProps) {
   const router = useRouter()
   const cart = useCart()
 
-  const [selectedColor, setSelectedColor] = useState(phone.colorOptions[0]?.name || '')
-  const [selectedStorage, setSelectedStorage] = useState('')
+  const [selectedColor, setSelectedColor] = useState<string>(phone.colorOptions[0]?.name || '')
+  const [selectedStorage, setSelectedStorage] = useState<string>('')
 
-  // Pick the correct price based on storage selection
-  const activeStorage = phone.storageOptions.find((s) => s.capacity === selectedStorage)
+  const activeStorage = phone.storageOptions.find(s => s.capacity === selectedStorage)
   const currentPrice = activeStorage ? activeStorage.price : phone.basePrice
+
+  const priceLabel = selectedStorage
+    ? `${currentPrice} EUR`
+    : `From ${phone.basePrice} EUR`
+
+  const matchedColor = phone.colorOptions.find(c => c.name === selectedColor)
+  const phoneImage = matchedColor?.imageUrl || phone.colorOptions[0]?.imageUrl || ''
 
   function handleAddToCart() {
     if (!selectedStorage || !selectedColor) return
@@ -68,7 +74,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
       price: currentPrice,
       color: selectedColor,
       storage: selectedStorage,
-      imageUrl: phone.colorOptions.find((c) => c.name === selectedColor)?.imageUrl || phone.imageUrl,
+      imageUrl: phoneImage,
       quantity: 1
     })
   }
@@ -79,7 +85,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
       <div>
         <button
           onClick={() => router.back()}
-          className='text-gray-500 hover:text-gray-800 inline-flex items-center gap-1'
+          className='text-gray-500 hover:text-gray-800 inline-flex items-center gap-1 cursor-pointer'
         >
           <span>&lt; Back</span>
         </button>
@@ -90,10 +96,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
         {/* LEFT COLUMN: phone image */}
         <div className='flex-1 flex items-center justify-center'>
           <img
-            src={
-              phone.colorOptions.find((c) => c.name === selectedColor)?.imageUrl
-              || phone.colorOptions[0]?.imageUrl
-            }
+            src={phoneImage}
             alt={`${phone.brand} - ${phone.name}`}
             className='w-auto max-h-[500px] object-contain'
           />
@@ -101,20 +104,23 @@ export default function DetailClient({ phone }: DetailClientProps) {
 
         {/* RIGHT COLUMN: name, price, color pickers, storage pickers, add to cart */}
         <div className='flex-1 max-w-md'>
-          <h1 className='text-3xl font-medium mb-2'>{phone.name}</h1>
+          <h1 className='text-3xl font-medium mb-2'>{phone.brand} {phone.name}</h1>
+          {/* Use the computed priceLabel */}
           <p className='text-lg text-gray-600 mb-4'>
-            From {phone.basePrice} EUR
+            {priceLabel}
           </p>
 
           {/* STORAGE OPTIONS */}
           <div className='mb-6'>
-            <h2 className='text-sm text-gray-600 font-normal mb-2'>STORAGE – HOW MUCH SPACE DO YOU NEED?</h2>
+            <h2 className='text-sm text-gray-600 font-normal mb-2'>
+              STORAGE – HOW MUCH SPACE DO YOU NEED?
+            </h2>
             <div className='flex gap-2'>
-              {phone.storageOptions.map((st) => (
+              {phone.storageOptions.map(st => (
                 <button
                   key={st.capacity}
                   onClick={() => setSelectedStorage(st.capacity)}
-                  className={`px-3 py-2 border 
+                  className={`px-6 py-3 border cursor-pointer
                     ${selectedStorage === st.capacity ? 'border-black font-semibold' : 'border-gray-300'}`}
                 >
                   {st.capacity}
@@ -124,28 +130,34 @@ export default function DetailClient({ phone }: DetailClientProps) {
           </div>
 
           {/* COLOR OPTIONS */}
-          <div className='mb-6'>
-            <h2 className='text-sm text-gray-600 font-normal mb-2'>COLOR – PICK YOUR FAVOURITE</h2>
-            <div className='flex gap-2'>
-              {phone.colorOptions.map((c) => (
+          <div className='mb-4'>
+            <h2 className='text-sm text-gray-600 font-normal mb-2'>
+              COLOR – PICK YOUR FAVOURITE
+            </h2>
+            <div className='flex gap-2 mb-2'>
+              {phone.colorOptions.map(c => (
                 <button
                   key={c.name}
                   onClick={() => setSelectedColor(c.name)}
                   style={{ backgroundColor: c.hexCode }}
-                  className={`w-8 h-8 border 
+                  className={`w-8 h-8 border cursor-pointer
                     ${selectedColor === c.name ? 'border-black' : 'border-gray-300'}`}
                 />
               ))}
             </div>
+            {selectedColor && (
+              <p className='text-sm text-gray-600'>
+                {selectedColor}
+              </p>
+            )}
           </div>
 
-          {/* PRICE + ADD TO CART */}
+          {/* ADD TO CART */}
           <div className='mb-6'>
-            <p className='text-xl font-medium mb-2'>Current Price: {currentPrice} EUR</p>
             <button
               onClick={handleAddToCart}
               disabled={!selectedStorage || !selectedColor}
-              className='bg-black text-white px-6 py-3 rounded disabled:bg-gray-400'
+              className='bg-black text-white text-sm px-12 py-4 disabled:bg-gray-100 disabled:text-gray-300'
             >
               ADD TO CART
             </button>
@@ -155,7 +167,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
 
       {/* SPECIFICATIONS */}
       <section className='mt-8'>
-        <h2 className='text-xl font-semibold mb-4'>SPECIFICATIONS</h2>
+        <h2 className='text-xl font-medium mb-4'>SPECIFICATIONS</h2>
         <div className='space-y-1'>
           <SpecRow label='BRAND' value={phone.brand} />
           <SpecRow label='NAME' value={phone.name} />
@@ -167,13 +179,16 @@ export default function DetailClient({ phone }: DetailClientProps) {
           <SpecRow label='SELFIE CAMERA' value={phone.specs.selfieCamera} />
           <SpecRow label='BATTERY' value={phone.specs.battery} />
           <SpecRow label='OS' value={phone.specs.os} />
-          <SpecRow label='SCREEN REFRESH RATE' value={phone.specs.screenRefreshRate} />
+          <SpecRow
+            label='SCREEN REFRESH RATE'
+            value={phone.specs.screenRefreshRate}
+          />
         </div>
       </section>
 
       {/* SIMILAR PRODUCTS */}
       <section className='mt-8'>
-        <h2 className='text-xl font-semibold mb-4'>SIMILAR ITEMS</h2>
+        <h2 className='text-xl font-medium mb-4'>SIMILAR ITEMS</h2>
         <SimilarItems products={phone.similarProducts} />
       </section>
     </div>
