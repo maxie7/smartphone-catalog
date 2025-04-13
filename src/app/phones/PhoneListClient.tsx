@@ -65,7 +65,7 @@ export default function PhoneListClient({ initialPhones }: Props) {
   return (
     <div className='w-full'>
       <div className='flex flex-col gap-1 mb-6 md:mb-12 w-full'>
-        <div className='relative'>
+        <div className='relative md:mb-2'>
           <input
             type='text'
             placeholder='Search for a smartphone...'
@@ -83,7 +83,7 @@ export default function PhoneListClient({ initialPhones }: Props) {
           )}
         </div>
 
-        <span className='text-gray-500 uppercase text-sm'>
+        <span className='text-sm uppercase'>
           {phones.length} results
         </span>
       </div>

@@ -23,10 +23,7 @@ export default async function PhoneDetailPage(props: PhoneDetailPageProps) {
   phone.similarProducts = deduplicateById(phone.similarProducts)
 
   return (
-    <section>
-      <h1 className='text-2xl font-bold mb-2'>
-        {phone.brand} - {phone.name}
-      </h1>
+    <section className='max-w-screen-lg mx-auto px-4 py-6 md:py-10'>
       <DetailClient phone={phone} />
     </section>
   )
