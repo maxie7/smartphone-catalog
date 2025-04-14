@@ -30,3 +30,56 @@ body {
   color: var(--foreground);
   font-family: Helvetica, Arial, sans-serif;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Make the vertical scrollbar thinner and styled */
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #999 #f1f1f1;
+}
+
+.similar-items-container::-webkit-scrollbar {
+  height: 2px;
+}
+
+.similar-items-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.similar-items-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 2px;
+  border: 1px solid #f1f1f1;
+}
+
+.similar-items-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+.similar-items-container {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}

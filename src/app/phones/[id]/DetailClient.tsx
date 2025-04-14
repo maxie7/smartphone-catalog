@@ -205,7 +205,7 @@ function SimilarItems({ products }: { products: SimilarProduct[] }) {
   const router = useRouter()
 
   return (
-    <div className='overflow-x-auto'>
+    <div className='similar-items-container overflow-x-auto'>
       <div className='flex gap-4'>
         {products.map((p) => (
           <div
