@@ -22,11 +22,11 @@ A web application for browsing, searching, and managing a catalog of smartphones
 9. [API Key Handling](#api-key-handling)
 10. [Linting & Formatting](#linting--formatting)
 11. [Deployment](#deployment)
-12. [License](#license)
+12. [Future Improvements](#future-improvements)
 
 ---
 
-## 1. Overview
+## Overview
 
 This **Smartphone Catalog** project demonstrates:
 
@@ -39,7 +39,7 @@ This **Smartphone Catalog** project demonstrates:
 
 ---
 
-## 2. Features
+## Features
 
 - **Listing Page**: Display up to 20 phones with brand/name/price.
 - **Search Input**: Real-time search by brand or model.
@@ -54,7 +54,7 @@ This **Smartphone Catalog** project demonstrates:
 
 ---
 
-## 3. Technologies
+## Technologies
 
 - **Node.js** (v18 or v22)
 - **Next.js** (v15.3)
@@ -66,7 +66,7 @@ This **Smartphone Catalog** project demonstrates:
 
 ---
 
-## 4. Project Structure
+## Project Structure
 
 - **`src/app`**: Next.js **App Router** structure.
 - **`PhoneListClient.tsx`**: Client-side search & phone listing.
@@ -76,7 +76,7 @@ This **Smartphone Catalog** project demonstrates:
 
 ---
 
-## 5. Installation
+## Installation
 
 1. **Clone** this repository.
 2. **Install** dependencies:
@@ -85,9 +85,9 @@ This **Smartphone Catalog** project demonstrates:
 ```
 3. Create a `.env` file (see Environment Variables).
 
-## 6. Running Locally
+## Running Locally
 
-### 6.1. Development (Yarn)
+### Development (Yarn)
 
    ```bash
       yarn dev
@@ -96,7 +96,7 @@ This **Smartphone Catalog** project demonstrates:
 - Starts Next.js in dev mode (Turbopack).
 - Visit http://localhost:3000
 
-### 6.2. Development (Docker)
+### Development (Docker)
 
 ```bash
     docker-compose -f docker-compose.dev.yml up --build
@@ -104,7 +104,7 @@ This **Smartphone Catalog** project demonstrates:
 - Runs a dev container with live reload
 - Open http://localhost:3000
 
-### 6.3. Production (Docker)
+### Production (Docker)
 
 ```bash
     docker-compose -f docker-compose.prod.yml up --build
@@ -113,7 +113,7 @@ This **Smartphone Catalog** project demonstrates:
 - Builds an optimized production image via Dockerfile.prod.
 - Runs a production container with static files served.
 
-## 7. Testing
+## Testing
 
 We use Jest + React Testing Library.
 
@@ -123,7 +123,7 @@ We use Jest + React Testing Library.
 
 Tests are located in `src/__tests__`.
 
-## 8. Environment Variables
+## Environment Variables
 
 Create a .env or .env.local with:
 
@@ -140,13 +140,13 @@ fetch(url, { headers: { 'x-api-key': process.env.NEXT_PUBLIC_API_KEY } })
 
 to authenticate requests.
 
-## 9. API Key Handling
+## API Key Handling
 
 All phone API requests require an `x-api-key`. 
 This project references `NEXT_PUBLIC_API_KEY` from `.env`, so you can easily rotate or secure your key.
 For purely server-side usage, define `API_KEY` (without `NEXT_PUBLIC_`) and reference it in SSR, but this code uses a public approach.
 
-## 10. Linting & Formatting
+## Linting & Formatting
 
 - **ESLint** is configured (`eslint.config.mjs`).
 
@@ -154,7 +154,7 @@ For purely server-side usage, define `API_KEY` (without `NEXT_PUBLIC_`) and refe
 
 - Additional tools (Prettier) can be integrated if desired.
 
-## 11. Deployment
+## Deployment
 
 A live version is deployed on **Netlify**: [Smartphone Catalog on Netlify](https://beamish-crepe-d4e99f.netlify.app/phones)
 
@@ -166,7 +166,7 @@ A live version is deployed on **Netlify**: [Smartphone Catalog on Netlify](https
 
 - Netlify: Next.js SSR is possible with minimal config.
 
-## 12. Future Improvements
+## Future Improvements
 
 > It might not be tonight… tomorrow… or the next day, but everything is going to be okay.
 > 
