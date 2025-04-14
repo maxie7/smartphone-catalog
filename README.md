@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smartphone Catalog
 
-## Getting Started
+A web application for browsing, searching, and managing a catalog of smartphones. Built with **Next.js** `(v15.3)`, **React**, **TypeScript**, **Tailwind**, and **React Context API** for state management. Includes both development and production Docker configurations, plus testing with Jest.
 
-First, run the development server:
+**Live Demo**: [Smartphone Catalog on Netlify](https://beamish-crepe-d4e99f.netlify.app/phones)
+
+---
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Technologies](#technologies)
+4. [Project Structure](#project-structure)
+5. [Installation](#installation)
+6. [Running Locally](#running-locally)
+    - [Development (Yarn)](#development-yarn)
+    - [Development (Docker)](#development-docker)
+    - [Production (Docker)](#production-docker)
+7. [Testing](#testing)
+8. [Environment Variables](#environment-variables)
+9. [API Key Handling](#api-key-handling)
+10. [Linting & Formatting](#linting--formatting)
+11. [Deployment](#deployment)
+12. [License](#license)
+
+---
+
+## 1. Overview
+
+This **Smartphone Catalog** project demonstrates:
+
+- Listing a grid of smartphones fetched from an external API (with x-api-key authentication).
+- Real-time search field to filter phones by brand or name.
+- Phone detail page (Server-Side Rendering in Next.js) showing specs, color/storage selection, price variations, and similar products.
+- Shopping cart with **React Context**, persisted in localStorage.
+- Fully responsive design using **Tailwind** breakpoints.
+- Docker support for both development and production.
+
+---
+
+## 2. Features
+
+- **Listing Page**: Display up to 20 phones with brand/name/price.
+- **Search Input**: Real-time search by brand or model.
+- **Detail Page**:
+    - Large phone image, spec table, color & storage pickers, “Add to Cart.”
+    - “Similar Items” row for related products.
+- **Cart**:
+    - Persisted with **React Context + localStorage**.
+    - Show item color/storage, remove items, display total.
+- **Testing**: Basic tests with **Jest** and **React Testing Library**.
+- **Responsive & Accessible**: Tailwind utilities, best practices for ARIA and focus.
+
+---
+
+## 3. Technologies
+
+- **Node.js** (v18 or v22)
+- **Next.js** (v15.3)
+- **React** (v19)
+- **TypeScript** (v5)
+- **Tailwind CSS** (v4)
+- **ESLint** + **Jest** + **React Testing Library**
+- **Docker** (for dev and prod images)
+
+---
+
+## 4. Project Structure
+
+- **`src/app`**: Next.js **App Router** structure.
+- **`PhoneListClient.tsx`**: Client-side search & phone listing.
+- **`DetailClient.tsx`**: Interactive logic for phone detail (color/storage selection).
+- **`CartProvider.tsx`**: React Context for shopping cart.
+- **`Dockerfile.dev / Dockerfile.prod`**: Build images for dev or production.
+
+---
+
+## 5. Installation
+
+1. **Clone** this repository.
+2. **Install** dependencies:
+```bash
+   yarn install
+```
+3. Create a `.env` file (see Environment Variables).
+
+## 6. Running Locally
+
+### 6.1. Development (Yarn)
+
+   ```bash
+      yarn dev
+   ```
+
+- Starts Next.js in dev mode (Turbopack).
+- Visit http://localhost:3000
+
+### 6.2. Development (Docker)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    docker-compose -f docker-compose.dev.yml up --build
+```
+- Runs a dev container with live reload
+- Open http://localhost:3000
+
+### 6.3. Production (Docker)
+
+```bash
+    docker-compose -f docker-compose.prod.yml up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Builds an optimized production image via Dockerfile.prod.
+- Runs a production container with static files served.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 7. Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+We use Jest + React Testing Library.
 
-## Learn More
+`yarn test`: Run tests once.
 
-To learn more about Next.js, take a look at the following resources:
+`yarn test:watch`: Re-run on file changes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tests are located in `src/__tests__`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 8. Environment Variables
 
-## Deploy on Vercel
+Create a .env or .env.local with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ini
+NEXT_PUBLIC_API_BASE_URL=https:/api-url.com
+NEXT_PUBLIC_API_KEY=someapikey
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`!!! Important !!!`: Do not commit real secrets. The code uses:
+
+```ts
+fetch(url, { headers: { 'x-api-key': process.env.NEXT_PUBLIC_API_KEY } })
+```
+
+to authenticate requests.
+
+## 9. API Key Handling
+
+All phone API requests require an `x-api-key`. 
+This project references `NEXT_PUBLIC_API_KEY` from `.env`, so you can easily rotate or secure your key.
+For purely server-side usage, define `API_KEY` (without `NEXT_PUBLIC_`) and reference it in SSR, but this code uses a public approach.
+
+## 10. Linting & Formatting
+
+- **ESLint** is configured (`eslint.config.mjs`).
+
+- Run `yarn lint` to see warnings/errors.
+
+- Additional tools (Prettier) can be integrated if desired.
+
+## 11. Deployment
+
+A live version is deployed on **Netlify**: [Smartphone Catalog on Netlify](https://beamish-crepe-d4e99f.netlify.app/phones)
+
+**Other Options**:
+
+- Vercel: Easiest for Next.js hosting.
+
+- Docker: Deploy the production image to any container-based host.
+
+- Netlify: Next.js SSR is possible with minimal config.
+
+## 12. Future Improvements
+
+> It might not be tonight… tomorrow… or the next day, but everything is going to be okay.
+> 
+> Unknown
