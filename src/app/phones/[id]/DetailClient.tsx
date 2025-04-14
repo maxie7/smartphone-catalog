@@ -88,7 +88,7 @@ export default function DetailClient({ phone }: DetailClientProps) {
           onClick={() => router.back()}
           className='text-gray-500 hover:text-gray-800 inline-flex items-center gap-1 cursor-pointer'
         >
-          <span>&lt; Back</span>
+          <span className='uppercase'>&lt;&nbsp;&nbsp;Back</span>
         </button>
       </div>
 

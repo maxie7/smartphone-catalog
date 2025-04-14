@@ -95,7 +95,7 @@ export default function PhoneListClient({ initialPhones }: Props) {
               key={phone.id}
               href={`/phones/${phone.id}`}
               className='border-r border-b border-gray-600 p-4 flex flex-col
-                         hover:bg-gray-50 transition-colors'
+                         hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors'
             >
               <div className='flex-1 flex items-center justify-center mb-2'>
                 <img
