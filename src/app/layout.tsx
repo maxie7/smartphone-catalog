@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <CartProvider>
           <Navbar />
-          <main className='p-4'>
+          <main className='p-4 lg:mx-4'>
             {children}
           </main>
         </CartProvider>

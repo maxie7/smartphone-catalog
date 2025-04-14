@@ -88,13 +88,13 @@ export default function PhoneListClient({ initialPhones }: Props) {
         </span>
       </div>
 
-      <div className='overflow-hidden border-t border-l border-gray-600'>
+      <div className='overflow-hidden border-t border-l border-gray-300'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-0'>
           {phones.map((phone) => (
             <Link
               key={phone.id}
               href={`/phones/${phone.id}`}
-              className='border-r border-b border-gray-600 p-4 flex flex-col
+              className='border-r border-b border-gray-300 p-4 flex flex-col
                          hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors'
             >
               <div className='flex-1 flex items-center justify-center mb-2'>
