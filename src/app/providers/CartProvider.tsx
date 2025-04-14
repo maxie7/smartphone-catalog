@@ -10,7 +10,7 @@ interface CartItem {
   color?: string
   storage?: string
   imageUrl?: string
-  quantity?: number
+  quantity: number
 }
 
 interface CartContextValue {

@@ -12,7 +12,7 @@ export default function CartPage() {
   // If cart is empty
   if (cart.length === 0) {
     return (
-      <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-screen'>
+      <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-[calc(100vh-60px)]'>
         <div className='mb-6'>
           <h2 className='text-xl md:text-2xl font-medium text-gray-500 uppercase'>
             CART (0)
@@ -47,7 +47,7 @@ export default function CartPage() {
 
   // If cart has items
   return (
-    <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-screen'>
+    <section className='max-w-screen-lg mx-auto p-4 md:p-8 flex flex-col min-h-[calc(100vh-60px)]'>
       {/* Cart Title */}
       <div className='mb-6'>
         <h2 className='text-xl md:text-2xl font-medium text-gray-500 uppercase'>
@@ -56,7 +56,7 @@ export default function CartPage() {
       </div>
 
       {/* Cart items */}
-      <div className='flex-1 overflow-auto pb-[160px]'>
+      <div className='flex-1 pb-[40px]'>
         {cart.map((item) => (
           <div
             key={item.id}
@@ -95,7 +95,7 @@ export default function CartPage() {
                 onClick={() => removeItem(item.id)}
                 className='text-red-600 text-sm hover:underline mt-1 self-start'
               >
-                Eliminar
+                Remove
               </button>
             </div>
           </div>
