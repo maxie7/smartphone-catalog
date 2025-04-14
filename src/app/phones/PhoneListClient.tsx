@@ -94,26 +94,43 @@ export default function PhoneListClient({ initialPhones }: Props) {
             <Link
               key={phone.id}
               href={`/phones/${phone.id}`}
-              className='border-r border-b border-gray-300 p-4 flex flex-col
-                         hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors'
+              className='
+                relative
+                border-r border-b border-gray-300 p-4 flex flex-col
+                group
+                transition-colors
+                transition-all transition-discrete
+                overflow-hidden
+              '
             >
-              <div className='flex-1 flex items-center justify-center mb-2'>
-                <img
-                  src={phone.imageUrl}
-                  alt={`${phone.brand} - ${phone.name}`}
-                  className='h-60 w-full object-contain'
-                />
-              </div>
-
-              <div className='w-full flex justify-between items-end'>
-                <div className='flex flex-col'>
-                  <p className='text-sm text-gray-500 uppercase'>
-                    {phone.brand}
-                  </p>
-                  <h3 className='text-medium'>{phone.name}</h3>
+              <div
+                className='
+                  absolute inset-0
+                  bg-gradient-to-t from-black via-black/70 to-transparent
+                  opacity-0
+                  transition-opacity duration-300 ease-in-out
+                  group-hover:opacity-100
+                  pointer-events-none
+                  z-10
+                '
+              />
+                <div className='relative z-20 flex-1 flex items-center justify-center mb-2'>
+                  <img
+                    src={phone.imageUrl}
+                    alt={`${phone.brand} - ${phone.name}`}
+                    className='h-60 w-full object-contain transition-transform duration-300 ease-in-out'
+                  />
                 </div>
-                <p className='text-normal'>${phone.basePrice}</p>
-              </div>
+
+                <div className='relative z-20 w-full flex justify-between items-end text-gray-700 group-hover:text-white transition-colors duration-300 ease-in-out'>
+                  <div className='flex flex-col'>
+                    <p className='text-sm text-gray-500 uppercase'>
+                      {phone.brand}
+                    </p>
+                    <h3 className='text-medium'>{phone.name}</h3>
+                  </div>
+                  <p className='text-normal'>${phone.basePrice}</p>
+                </div>
             </Link>
           ))}
         </div>
