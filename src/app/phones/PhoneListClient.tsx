@@ -129,7 +129,7 @@ export default function PhoneListClient({ initialPhones }: Props) {
                     </p>
                     <h3 className='text-medium'>{phone.name}</h3>
                   </div>
-                  <p className='text-normal'>${phone.basePrice}</p>
+                  <p className='text-normal'>{phone.basePrice} EUR</p>
                 </div>
             </Link>
           ))}

@@ -216,7 +216,7 @@ function SimilarItems({ products }: { products: SimilarProduct[] }) {
             <img src={p.imageUrl} alt={p.name} className='w-full h-40 object-contain mb-2' />
             <p className='text-xs text-gray-500 uppercase'>{p.brand}</p>
             <p className='text-sm font-medium'>{p.name}</p>
-            <p className='text-sm'>${p.basePrice}</p>
+            <p className='text-sm'>{p.basePrice} EUR</p>
           </div>
         ))}
       </div>
