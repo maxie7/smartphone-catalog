@@ -23,10 +23,10 @@ describe('PhoneListClient', () => {
     render(<PhoneListClient initialPhones={mockPhones} />)
 
     expect(screen.getByText(/galaxy s24 ultra/i)).toBeInTheDocument()
-    expect(screen.getByText('$1329')).toBeInTheDocument()
+    expect(screen.getByText('1329 EUR')).toBeInTheDocument()
 
     expect(screen.getByText(/galaxy a25 5g/i)).toBeInTheDocument()
-    expect(screen.getByText('$239')).toBeInTheDocument()
+    expect(screen.getByText('239 EUR')).toBeInTheDocument()
 
     expect(screen.getByText(/2 results/i)).toBeInTheDocument()
   });
