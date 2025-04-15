@@ -9,6 +9,12 @@ export default function CartPage() {
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
+  const priceFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2
+  })
+
   // If cart is empty
   if (cart.length === 0) {
     return (
@@ -90,6 +96,9 @@ export default function CartPage() {
               <p className='text-sm text-gray-600'>
                 {item.price} EUR
               </p>
+              {item.quantity > 1 && (
+                `Quantity: (${item.quantity})`
+              )}
 
               <button
                 onClick={() => removeItem(item.id)}
@@ -107,7 +116,7 @@ export default function CartPage() {
           <div className='flex sm:order-none items-center justify-between w-full sm:w-auto'>
             <span className='uppercase text-sm font-medium mr-2'>TOTAL</span>
             <span className='uppercase text-sm font-medium'>
-              {totalPrice} EUR
+              {priceFormatter.format(totalPrice)}
             </span>
           </div>
 

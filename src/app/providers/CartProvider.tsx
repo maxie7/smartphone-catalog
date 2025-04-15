@@ -36,16 +36,49 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
 
-  function addItem(item: CartItem) {
+  function addItem(newItem: CartItem) {
     setCart((prev) => {
-      return [...prev, item]
+      // Check if there's an existing cart item with the same id
+      const existingIndex = prev.findIndex((i) => i.id === newItem.id)
+      if (existingIndex !== -1) {
+        // If found, increment its quantity
+        const updated = [...prev]
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: updated[existingIndex].quantity + newItem.quantity
+        }
+        return updated
+      } else {
+        // Otherwise push a new item
+        return [...prev, newItem]
+      }
     })
   }
 
   function removeItem(id: string) {
-    setCart((prev) => prev.filter((item) => item.id !== id))
-  }
+    setCart((prev) => {
+      const existingIndex = prev.findIndex((item) => item.id === id)
+      if (existingIndex === -1) {
+        // not found, just return
+        return prev
+      }
 
+      const updated = [...prev]
+      const existingItem = updated[existingIndex]
+      if (existingItem.quantity > 1) {
+        // Decrement
+        updated[existingIndex] = {
+          ...existingItem,
+          quantity: existingItem.quantity - 1
+        }
+        return updated
+      } else {
+        // quantity is 1 => remove item entirely
+        updated.splice(existingIndex, 1)
+        return updated
+      }
+    })
+  }
   function clearCart() {
     setCart([])
   }
