@@ -31,17 +31,26 @@ interface PhoneDetail extends Phone {
   similarProducts: Phone[]
 }
 
-const API_BASE_URL = process.env.API_BASE_URL
-if (!API_BASE_URL) {
-  throw new Error('API_BASE_URL environment variable is not defined')
+function getApiBaseUrl(): string {
+  const baseUrl = process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL
+  if (!baseUrl) {
+    throw new Error('API_BASE_URL environment variable is not defined')
+  }
+  return baseUrl
 }
 
-const API_KEY = process.env.API_KEY
-if (!API_KEY) {
-  throw new Error('API_KEY environment variable is not defined')
+function getApiKey(): string {
+  const key = process.env.API_KEY || process.env.NEXT_PUBLIC_API_KEY
+  if (!key) {
+    throw new Error('API_KEY environment variable is not defined')
+  }
+  return key
 }
 
 export async function fetchPhones(search?: string): Promise<Phone[]> {
+  const API_BASE_URL = getApiBaseUrl()
+  const API_KEY = getApiKey()
+
   let url = `${API_BASE_URL}/products?limit=23`
   if (search) {
     url += `&search=${encodeURIComponent(search)}`
@@ -49,7 +58,7 @@ export async function fetchPhones(search?: string): Promise<Phone[]> {
 
   const res = await fetch(url, {
     headers: {
-      'x-api-key': API_KEY || ''
+      'x-api-key': API_KEY
     }
   })
 
@@ -61,9 +70,12 @@ export async function fetchPhones(search?: string): Promise<Phone[]> {
 }
 
 export async function fetchPhoneById(id: string): Promise<PhoneDetail> {
+  const API_BASE_URL = getApiBaseUrl()
+  const API_KEY = getApiKey()
+
   const res = await fetch(`${API_BASE_URL}/products/${id}`, {
     headers: {
-      'x-api-key': API_KEY || ''
+      'x-api-key': API_KEY
     },
     next: { revalidate: 3600 }
   })
