@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import CartPage from '@/app/cart/page'
 
 const mockRemoveItem = jest.fn()
@@ -33,5 +33,9 @@ describe('CartPage', () => {
 
     expect(screen.getByText(/phone a/i)).toBeInTheDocument()
     expect(screen.getByText(/phone b/i)).toBeInTheDocument()
+
+    const removeButtons = screen.getAllByRole('button', { name: /remove/i })
+    fireEvent.click(removeButtons[0])
+    expect(mockRemoveItem).toHaveBeenCalledTimes(1)
   })
 })
