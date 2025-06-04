@@ -128,7 +128,7 @@ Tests are located in `src/__tests__`.
 Create a .env or .env.local with:
 
 ```ini
-NEXT_PUBLIC_API_BASE_URL=https:/api-url.com
+NEXT_PUBLIC_API_BASE_URL=https://api-url.com
 NEXT_PUBLIC_API_KEY=someapikey
 ```
 
