@@ -1,5 +1,15 @@
 import { fetchPhones } from '@/lib/api'
 
+beforeAll(() => {
+  process.env.API_BASE_URL = 'http://example.com'
+  process.env.API_KEY = 'test-key'
+})
+
+afterAll(() => {
+  delete process.env.API_BASE_URL
+  delete process.env.API_KEY
+})
+
 global.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
