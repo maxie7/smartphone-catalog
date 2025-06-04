@@ -99,7 +99,7 @@ export default function PhoneListClient({ initialPhones }: Props) {
                 border-r border-b border-gray-300 p-4 flex flex-col
                 group
                 transition-colors
-                transition-all transition-discrete
+                transition-all
                 overflow-hidden
               '
             >
